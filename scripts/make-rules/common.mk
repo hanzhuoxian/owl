@@ -72,6 +72,9 @@ ifndef V
 MAKEFLAGS += --no-print-directory
 endif
 
+# Copy githook scripts when execute makefile
+COPY_GITHOOK:=$(shell cp -f githooks/* .git/hooks/)
+
 BLOCKER_TOOLS ?= golangci-lint
 
 COMMA := ,
