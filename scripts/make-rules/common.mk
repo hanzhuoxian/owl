@@ -75,7 +75,8 @@ endif
 # Copy githook scripts when execute makefile
 COPY_GITHOOK:=$(shell cp -f githooks/* .git/hooks/)
 
-BLOCKER_TOOLS ?= golangci-lint
+BLOCKER_TOOLS ?= golangci-lint go-junit-report golines goimports gsemver
+CRITICAL_TOOLS ?= swagger mockgen gotests git-chglog github-release protoc-gen-go
 
 COMMA := ,
 SPACE :=

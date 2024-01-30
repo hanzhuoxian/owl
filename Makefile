@@ -4,6 +4,12 @@ include scripts/make-rules/common.mk
 include scripts/make-rules/go.mk
 include scripts/make-rules/tool.mk
 
+.PHONY: all
+all: objects := $(addsuffix .c, c a b)
+all:
+	@echo $(origin <)
+
+
 ## help: Show this help info.
 .PHONY: help
 help: Makefile
@@ -14,6 +20,28 @@ help: Makefile
 .PHONY: build
 build:
 	@$(MAKE) go.build
+
+
+.PHONY: test
+test:
+	@$(MAKE) go.test
+
+.PHONY: lint
+lint:
+	@$(MAKE) go.lint
+
+.PHONY: tidy
+tidy:
+	@$(GO) mod tidy
+
+.PHONY: install
+install:
+	@$(MAKE) tools.install
+
+
+.PHONY: clean
+clean:
+	@$(MAKE) go.clean
 
 # 选项
 # ==============================================================================
