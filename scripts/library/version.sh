@@ -23,7 +23,7 @@ function version::get_version_vars() {
     return
   fi
 
-  # If the iamrnetes source was exported through git archive, then
+  # If the rnetes source was exported through git archive, then
   # we likely don't have a git tree, but these magic values may be filled in.
   # shellcheck disable=SC2016,SC2050
   # Disabled as we're not expanding these at runtime, but rather expecting
@@ -39,7 +39,7 @@ function version::get_version_vars() {
     fi
   fi
 
-  local git=(git --work-tree "${ROOT}")
+  local git=(git --work-tree "${ROOT_PATH}")
 
   if [[ -n ${GIT_COMMIT-} ]] || GIT_COMMIT=$("${git[@]}" rev-parse "HEAD^{commit}" 2>/dev/null); then
     if [[ -z ${GIT_TREE_STATE-} ]]; then
@@ -93,7 +93,7 @@ function version::get_version_vars() {
           GIT_MINOR+="+"
         fi
       fi
-
+      
       # If GIT_VERSION is not a valid Semantic Version, then refuse to build.
       if ! [[ "${GIT_VERSION}" =~ ^v([0-9]+)\.([0-9]+)(\.[0-9]+)?(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
           echo "GIT_VERSION should be a valid Semantic Version. Current value: ${GIT_VERSION}"

@@ -1,13 +1,19 @@
 
+.DEFAULT_GOAL := all
+
+.PHONY: all
+all: tidy format lint build
+
+
+ROOT_PACKAGE=github.com/hanzhuoxian/owl
+
 # includes
 include scripts/make-rules/common.mk
 include scripts/make-rules/go.mk
 include scripts/make-rules/tool.mk
-
-.PHONY: all
-all: objects := $(addsuffix .c, c a b)
-all:
-	@echo $(origin <)
+include scripts/make-rules/release.mk
+include scripts/make-rules/image.mk
+include scripts/make-rules/dependencies.mk
 
 
 ## help: Show this help info.
@@ -21,6 +27,14 @@ help: Makefile
 build:
 	@$(MAKE) go.build
 
+## build.multiarch: Build source code for multiple platforms. See option PLATFORMS.
+.PHONY: build.multiarch
+build.multiarch:
+	@$(MAKE) go.build.multiarch
+
+.PHONY: format
+format:
+	@$(MAKE) go.format
 
 .PHONY: test
 test:
@@ -42,6 +56,10 @@ install:
 .PHONY: clean
 clean:
 	@$(MAKE) go.clean
+
+.PHONY: dependencies
+dependencies:
+	@$(MAKE) dependencies.run
 
 # 选项
 # ==============================================================================

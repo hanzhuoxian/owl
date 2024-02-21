@@ -20,6 +20,7 @@ readonly SUPPORTED_CLIENT_PLATFORMS=(
 function golang::server_targets() {
   local targets=(
     owl-apiserver
+    owlctl
   )
   echo "${targets[@]}"
 }
@@ -112,8 +113,10 @@ golang::setup_platforms
 # The set of client targets that we are building for all platforms
 # If you update this list, please also update build/BUILD.
 readonly CLIENT_TARGETS=(
-  iamctl
+  owl-apiserver
+  owlctl
 )
+
 readonly CLIENT_BINARIES=("${CLIENT_TARGETS[@]##*/}")
 
 readonly ALL_TARGETS=(
