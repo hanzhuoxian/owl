@@ -431,13 +431,21 @@ linters-settings:
       - shadow
     disable-all: false
   depguard:
-    list-type: blacklist
-    include-go-root: false
-    packages:
-      - github.com/Sirupsen/logrus
-    packages-with-error-message:
-      # specify an error message to output when a blacklisted package is used
-      - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
+    rules:
+      main:
+        list-mode: lax
+        files:
+          - "!**/*_a _file.go"
+        allow:
+          - $gostd
+          - github.com/OpenPeeDeeP
+          - github.com/spf13
+          - github.com/hanzhuoxian
+        deny:
+          - pkg: "github.com/sirupsen/logrus"
+            desc: not allowed
+          - pkg: "github.com/pkg/errors"
+            desc: Should be replaced by standard lib errors package
 
   importas:
     # if set to `true`, force to use alias.
@@ -563,9 +571,6 @@ linters-settings:
     ignore: ""
     # include method names and field names (i.e., qualified names) in checks
     q: false
-  rowserrcheck:
-    packages:
-      - github.com/jmoiron/sqlx
   revive:
     # see https://github.com/mgechev/revive#available-rules for details.
     ignore-generated-header: true
@@ -757,7 +762,6 @@ linters:
     - predeclared
     - promlinter
     - revive
-    - rowserrcheck
     - sqlclosecheck
     - staticcheck
     - stylecheck
@@ -766,16 +770,15 @@ linters:
     - unconvert
     - unparam
     - unused
-    - wastedassign
     - whitespace
     - bidichk
-    - wastedassign
     - execinquery
     - nosprintfhostport
     - grouper
     - decorder
     - errchkjson
     - maintidx
+    - asasalint
       #- containedctx
       #- tagliatelle
       #- nonamedreturns
@@ -842,7 +845,6 @@ issues:
 
     - path: (pkg/app/.*)\.go
       linters:
-        - deadcode
         - unused
         - varcheck
         - forbidigo
