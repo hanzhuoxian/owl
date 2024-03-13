@@ -571,9 +571,6 @@ linters-settings:
     ignore: ""
     # include method names and field names (i.e., qualified names) in checks
     q: false
-  rowserrcheck:
-    packages:
-      - github.com/jmoiron/sqlx
   revive:
     # see https://github.com/mgechev/revive#available-rules for details.
     ignore-generated-header: true
@@ -765,7 +762,6 @@ linters:
     - predeclared
     - promlinter
     - revive
-    - rowserrcheck
     - sqlclosecheck
     - staticcheck
     - stylecheck
@@ -774,10 +770,8 @@ linters:
     - unconvert
     - unparam
     - unused
-    - wastedassign
     - whitespace
     - bidichk
-    - wastedassign
     - execinquery
     - nosprintfhostport
     - grouper

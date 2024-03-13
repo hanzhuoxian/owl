@@ -18,7 +18,16 @@ func NewOwlCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 		Short: "owlctl controls the owl platform",
 		Long:  `owlctl controls the owl platform`,
 		Run:   runHelp,
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+			return initProfiling()
+		},
+		PersistentPostRunE: func(cmd *cobra.Command, args []string) error {
+			return flushProfiling()
+		},
 	}
+	flags := cmds.PersistentFlags()
+
+	addProfilingFlags(flags)
 
 	return cmds
 }
